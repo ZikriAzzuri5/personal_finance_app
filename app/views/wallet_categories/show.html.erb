@@ -1,0 +1,7 @@
+
+<h1><%= @wallet_category.name %></h1>
+<h4>"<%= @wallet_category.wallet_type %>"</h4>
+<h4>"<%= @wallet_category.amount_of_money %>"</h4>
+<h4>"<%= @wallet_category.description %>"</h4>
+
+<%= link_to 'Remove', @wallet_category, method: :delete, data: { confirm: 'Are you sure?' } %>

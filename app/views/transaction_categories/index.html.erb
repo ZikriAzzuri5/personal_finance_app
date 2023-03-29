@@ -1,0 +1,9 @@
+<table>
+  <% @transaction_categories.each do |transaction_category| %>
+    <tr>
+      <td><%= link_to transaction_category.name, transaction_category_path(transaction_category)%></td>
+      <td><%= button_to 'Edit', edit_transaction_category_path(transaction_category), method: 'get'%></td>
+      <td><%= button_to 'Remove', transaction_category_path(transaction_category), method: 'delete', data: { confirm: 'Are you sure?' } %></td>
+  <% end %>
+</table>
+<%= link_to "Add a New transaction category", new_transaction_category_path %>

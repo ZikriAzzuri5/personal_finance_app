@@ -1,0 +1,15 @@
+<h3>create a wallet category</h3>
+
+<ul>
+  <% @wallet_category.errors.full_messages.each do |error| %>
+    <li><%= error %></li>
+  <% end %>
+</ul>
+
+<%= form_with model: @wallet_category do |form| %>
+  <%= form.text_field(:name, { placeholder: "name" }) %>
+  <%= form.text_field :wallet_type, placeholder: "wallet type" %>
+  <%= form.number_field :amount_of_money, placeholder: "amount of money" %>
+  <%= form.text_field :description, placeholder: "description" %>
+  <%= form.submit %>
+<% end %>
