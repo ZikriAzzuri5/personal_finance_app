@@ -1,4 +1,5 @@
 class TransactionCategoriesController < ApplicationController
+  before_action :authenticate_user!
   before_action :current_transaction_category, only: [:show, :edit, :update, :destroy]
 
   def index

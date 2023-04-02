@@ -7,7 +7,7 @@
 #   Character.create(name: "Luke", movie: movies.first)
 
 
-WalletCategory.create(name: "gopay", wallet_type: "e wallet", amount_of_money: 200000, description: "gopay zikri")
+WalletCategory.where(name: "gopay", wallet_type: "e wallet", amount_of_money: 200000, description: "gopay zikri").first_or_create!
 
-TransactionCategory.create(name: "clothes", description: "polo red shirt")
-TransactionCategory.create(name: "shoes", description: "adidas nxt 37 white")
+TransactionCategory.where(name: "clothes", description: "polo red shirt").first_or_create!
+TransactionCategory.where(name: "shoes", description: "adidas nxt 37 white").first_or_create!

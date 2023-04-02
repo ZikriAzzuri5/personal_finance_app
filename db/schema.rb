@@ -27,8 +27,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_27_094934) do
 
   create_table "wallet_categories", force: :cascade do |t|
     t.string "name"
-    t.integer "wallet_type"
-    t.string "amount_of_money"
+    t.string "wallet_type"
+    t.integer "amount_of_money"
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

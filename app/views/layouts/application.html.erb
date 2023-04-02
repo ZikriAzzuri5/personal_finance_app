@@ -7,10 +7,18 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
   </head>
 
   <body>
+    <% if user_signed_in? %>
+      <%= link_to 'Dashboard', root_path %>
+      <%= link_to 'Wallet Categories', wallet_categories_path %>
+      <%= link_to 'Logout', logout_path %>
+    <% elsif request.path != login_path %>
+      <%= link_to 'Login', login_path %>
+    <% end %>
     <%= yield %>
+    <%= flash[:notice] %>
   </body>
 </html>
