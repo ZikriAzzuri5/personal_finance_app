@@ -1,0 +1,11 @@
+<nav class="bg-white fixed mx-auto left-0 top-0 right-0 z-10 rounded-b-lg max-w-lg ">
+  <div class="max-w-7xl px-2 sm:px-6 lg:px-8">
+    <div class="flex justify-center h-16">
+      <%= form_with url: new_transaction_path, method: 'GET', class: "flex justify-center items-center h-16" do |form| %>
+        <%= form.select :transaction_type_id, transaction_type_select_options, { selected: params[:transaction_type_id] }, onchange: 'this.form.requestSubmit()', class: "block
+        w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none
+        focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" %>
+      <% end %>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,29 @@
+<div class="min-h-screen bg-bgColor flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8">
+  <div class="bg-white p-8 rounded-lg shadow-md max-w-md w-full">
+    <h2 class="font-bold text-2xl ">Transaction</h2>
+    <%= form_with model: @category, class: "space-y-6" do |form| %>
+      <div>
+        <%= form.label :name, class: "text-sm font-medium text-gray-700 block"%>
+        <div class="mt-1">
+          <%= form.text_field :name, class: "text-sm font-normal px-3 py-2 mb-2 text-slate-700 border shadow rounded w-full placeholder: text-slate-700 focus:outline-none focus:ring-l focus:ring-green-500 focus:border-green-500 invalid:text-red-700 invalid:focus:ring-red-700 invalid:focus:border-red-700" %>
+        </div>
+      </div>
+      <div>
+        <% if @category.errors.full_messages.present? %>
+          <% @category.errors.full_messages.each do |error| %>
+            <span class="text-red-500 my-3"><%= error %></span>
+          <% end %>
+        <% end %>
+      </div>
+      <div>
+        <%= form.label :description, class: "text-sm font-medium text-gray-700 block"%>
+        <div class="mt-1">
+          <%= form.text_field :description, class: "text-sm font-normal px-3 py-2 mb-2 text-slate-700 border shadow rounded w-full placeholder: text-slate-700 focus:outline-none focus:ring-l focus:ring-green-500 focus:border-green-500 invalid:text-red-700 invalid:focus:ring-red-700 invalid:focus:border-red-700" %>
+        </div>
+      </div>
+      <div>
+        <%= form.submit class: "w-full flex justify-center mt-4 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" %>
+      </div>
+    <% end %>
+  </div>
+</div>

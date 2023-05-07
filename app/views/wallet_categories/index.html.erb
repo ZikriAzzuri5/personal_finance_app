@@ -1,9 +1,0 @@
-<table>
-  <% @wallet_categories.each do |wallet_category| %>
-    <tr>
-      <td><%= link_to wallet_category.name, wallet_category_path(wallet_category)%></td>
-      <td><%= button_to 'Edit', edit_wallet_category_path(wallet_category), method: 'get'%></td>
-      <td><%= button_to 'Remove', wallet_category_path(wallet_category), method: 'delete', data: { confirm: 'Are you sure?' } %></td>
-  <% end %>
-</table>
-<%= link_to "Add a New wallet category", new_wallet_category_path %>

@@ -1,0 +1,46 @@
+id:
+  date:
+    month_names:
+      - Januari
+      - Februari
+      - Maret
+      - April
+      - Mei
+      - Juni
+      - Juli
+      - Agustus
+      - September
+      - Oktober
+      - November
+      - Desember
+    order:
+      - :day
+      - :month
+      - :year
+  number:
+    currency:
+      format:
+        unit: 'Rp'
+        format: '%u %n'
+        separator: ","
+        delimiter: "."
+        precision: 2
+        significant: false
+        strip_insignificant_zeros: true
+  activerecord:
+    attributes:
+      wallet:
+        wallet_type_id: 'Tipe Wallet'
+        wallet_type: 'Tipe Wallet'
+  errors:
+    messages:
+      required: 'harus diisi'
+      blank: 'harus diisi'
+      too_short: 'terlalu pendek'
+      not_a_number: 'harus angka'
+  cash: 'tunai'
+  bank_account: 'rekening bank'
+  credit_card: 'kartu kredit'
+  investation: 'investasi'
+  e_wallet: 'e-wallet'
+  others: 'lainnya'

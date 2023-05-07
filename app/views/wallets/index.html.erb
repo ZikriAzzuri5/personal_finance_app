@@ -1,0 +1,27 @@
+<div>
+  <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl mt-6 w-full">
+    <div class="md:flex flex flex-col">
+      <% @wallets.each do |wallet| %>
+        <div class="border-t-2 flex items-center">
+          <div class="md:flex-shrink-0 mr-6 ">
+            <img class="object-cover h-12 w-12 sm:h-24 sm:w-24 rounded-full max-w-none ml-4" src="https://source.unsplash.com/random" alt="Random Image">
+          </div>
+          <div class="p-8">
+            <h3 class="block mt-1 text-lg leading-tight font-medium text-black"><%= wallet.name %></h3>
+            <p class="mt-2 text-gray-500"><%= number_to_currency(wallet.amount) %></p>
+            <div class="mt-4">
+              <%= link_to 'Details', wallet_path(wallet), class:"bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"%>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <div class="flex w-full justify-end">
+      <%= link_to new_wallet_path , class: "bg-blue-500 hover:bg-blue-600 text-white font-bold p-4 rounded-full fixed bottom-24	right-[calc(25%_+_150px)] drop-shadow-xl" do	%>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+        </svg>
+      <% end %>
+    </div>
+  </div>
+</div>
