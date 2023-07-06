@@ -1,27 +1,85 @@
-<div>
-  <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl mt-6 w-full">
-    <div class="md:flex flex flex-col">
-      <% @categories.each do |category| %>
-        <div class="border-t-2 flex items-center">
-          <div class="md:flex-shrink-0 mr-6 ">
-          <img class="object-cover h-12 w-12 sm:h-24 sm:w-24 rounded-full max-w-none ml-4" src="https://source.unsplash.com/random" alt="Random Image">
+
+<% content_for :header do %>
+  <%= render 'header', title: 'Category'%>
+<% end %>
+
+<% content_for :navbar do %>
+  <%= render 'navbar' %>
+<% end %>
+
+<section class="category-name bg-white min-h-screen h-full">
+  <ul class="pt-24">
+    <!-- <button class="w-10 h-10 z-0 p-2 rounded-full bg-red-400 border-b-2 border-gray-500 sticky top-[800px] left-[700px]">A</button> -->
+    <%= 20.times do %>
+      <li class="flex justify-between border border-gray-300 items-center p-4">
+        <img class="object-cover h-12 w-12 rounded-full" src="https://source.unsplash.com/random" alt="Random Image">
+        <span>some text</span>
+        <button>option</button>
+      </li>
+    <% end %>
+  </ul>
+  <ul>
+  </ul>
+
+</section>
+<!--
+<div class="nav-mobile max-w-md mx-auto w-full shadow-md overflow-hidden md:max-w-2xl my-16 min-h-screen bg-white ">
+  <div class="parent-list md:flex flex flex-col pb-[100px]">
+    <div class="button-biru flex z-10 rounded-full">
+      <%= link_to new_category_path, class: "bg-blue-500 hover:bg-blue-600 text-white font-bold p-4 rounded-full drop-shadow-xl" do %>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+        </svg>
+      <% end %>
+    </div>
+    <% @categories.each do |category| %>
+    <div class="border-b-2 flex items-center bg-white">
+      <div class="md:flex-shrink-0 mr-6">
+        <img class="object-cover h-12 w-12 sm:h-16 sm:w-16 rounded-full max-w-none ml-4" src="https://source.unsplash.com/random" alt="Random Image">
+      </div>
+      <div class="p-8 flex justify-between items-center w-full">
+        <div>
+          <h3 class="block mt-1 text-lg leading-tight font-medium text-black"><%= category.name %></h3>
+          <p class="mt-2 text-gray-500"><%= category.description %></p>
+        </div>
+        <div>
+          <button onclick="toggleOverlay('<%= category.id %>')">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div id="overlay_<%= category.id %>" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center hidden">
+        <div class="bg-white rounded-lg shadow-lg p-8 relative">
+          <div class="flex justify-end">
+            <%= link_to 'Remove', category_path(category), data: { turbo_method: :delete, confirm: 'Are you sure?' }, class: "bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-md shadow mr-2 mb-2" %>
+            <%= link_to 'Edit', edit_category_path(category), class: "border border-gray-300 text-gray-800 font-bold py-2 px-4 rounded-md shadow mr-2 mb-2" %>
           </div>
-          <div class="p-8">
-            <h3 class="block mt-1 text-lg leading-tight font-medium text-black"><%= category.name %></h3>
-            <p class="mt-2 text-gray-500"><%= category.description %></p>
-            <div class="mt-4">
-              <%= link_to 'Details', category_path(category), class:"bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"%>
-            </div>
+          <div class="flex justify-center">
+            <button onclick="toggleOverlay('<%= category.id %>')" class= "text-gray-400 hover:text-gray-600 font-bold py-2 px-4 rounded-md shadow mb-2 w-full">
+              Cancel
+            </button>
           </div>
         </div>
+      </div>
+    </div>
+    <% end %>
+    <div class="button-biru flex z-10 rounded-full">
+      <%= link_to new_category_path, class: "bg-blue-500 hover:bg-blue-600 text-white font-bold p-4 rounded-full drop-shadow-xl" do %>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+        </svg>
       <% end %>
     </div>
   </div>
-  <div class="flex w-full justify-end">
-    <%= link_to new_category_path , class: "bg-blue-500 hover:bg-blue-600 text-white font-bold p-4 rounded-full drop-shadow-xl fixed bottom-24 right-[calc(25%_+_150px)] " do	%>
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-      </svg>
-    <% end %>
-  </div>
-</div>
+</div> -->
+
+<script>
+  function toggleOverlay(categoryId) {
+    const overlay = document.getElementById(`overlay_${categoryId}`);
+    overlay.classList.toggle('hidden');
+  }
+</script>
+
+

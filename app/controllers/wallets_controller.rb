@@ -3,7 +3,8 @@ class WalletsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @wallets = Wallet.all
+    @q = Wallet.where(user_id: current_user).ransack(params[:q])
+    @wallets = @q.result(distinct: true)
   end
 
   def show
@@ -31,7 +32,6 @@ class WalletsController < ApplicationController
       render :new, status: 422
     end
   end
-
 
   def destroy
     @wallet.destroy

@@ -1,0 +1,32 @@
+<%= render 'header' %>
+<div>
+  <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl  w-full">
+    <div class="md:flex flex flex-col">
+      <% @transaction_templates.each do |transaction_template| %>
+        <div class="border-t-2 flex items-center">
+          <div class="md:flex-shrink-0 mr-6 ">
+          <img class="object-cover h-12 w-12 sm:h-16 sm:w-16 rounded-full max-w-none ml-4" src="https://source.unsplash.com/random" alt="Random Image">
+          </div>
+          <div class="p-8">
+            <h3 class="block mt-1 text-lg leading-tight font-medium text-black"><%= transaction_template.amount %></h3>
+            <p class="mt-2 text-gray-500"><%= transaction_template.date %></p>
+            <p class="mt-2 text-gray-500"><%= transaction_template.description %></p>
+            <p class="mt-2 text-gray-500"><%= transaction_template.type %></p>
+            <p class="mt-2 text-gray-500"><%= transaction_template.wallet_account %></p>
+            <p class="mt-2 text-gray-500"><%= transaction_template.category %></p>
+            <div class="mt-4">
+              <%= link_to 'Details', transaction_template_path(transaction_template), class:"bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"%>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="flex w-full justify-end">
+    <%= link_to new_transaction_template_path , class: "bg-blue-500 hover:bg-blue-600 text-white font-bold p-4 rounded-full drop-shadow-xl fixed" do	%>
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+      </svg>
+    <% end %>
+  </div>
+</div>

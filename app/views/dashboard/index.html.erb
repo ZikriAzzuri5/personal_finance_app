@@ -1,19 +1,24 @@
-<div>
-  <div class="max-w-md mx-auto w-full bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl mt-6">
-    <div class="bg-white p-8 rounded-lg shadow-md max-w-md w-full">
-      <div>
-        <% if user_signed_in? %>
-          <h1>Hello <%= current_user.email %></h1>
-        <% end %>
-      </div>
-      <div class="text-center">
-        <h1 class="text-2xl font-bold text-gray-800 mb-4">Create Wallet Category</h1>
-        <p class="text-gray-600 mb-8">Please enter your details.</p>
-      </div>
-      <div>
-        <p>total money</p>
-        <%= number_to_currency(total_money) %>
-      </div>
+<div class="max-w-md mx-auto w-full rounded-xl shadow-md overflow-hidden md:max-w-2xl min-h-screen mt-10 min-h-screen bg-white">
+  <div class="bg-white p-8 rounded-lg shadow-md max-w-md w-full">
+
+    <div>
+      <% if user_signed_in? %>
+        <h1>Hello <%= current_user.email %></h1>
+      <% end %>
+    </div>
+    <div class="text-center">
+    </div>
+    <div>
+      <p>Total Balance</p>
+      <%= number_to_currency(current_total_balance) %>
     </div>
   </div>
 </div>
+
+<% content_for :header do %>
+  <%= render 'header', title: 'Home'%>
+<% end %>
+
+<% content_for :navbar do %>
+  <%= render 'navbar' %>
+<% end %>

@@ -3,7 +3,12 @@ class CategoriesController < ApplicationController
   before_action :current_category, only: [:show, :edit, :update, :destroy]
 
   def index
-    @categories = Category.all
+    @q = Category.where(user_id: current_user).ransack(params[:q])
+    @categories = @q.result(distinct: true)
+
+    if params[:back_button].present?
+      redirect_to categories_path
+    end
   end
 
   def show

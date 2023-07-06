@@ -10,4 +10,5 @@
 #
 class Contact < ApplicationRecord
   has_many :transactions
+  has_many :transaction_templates
 end

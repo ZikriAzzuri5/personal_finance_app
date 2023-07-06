@@ -32,12 +32,23 @@ id:
       wallet:
         wallet_type_id: 'Tipe Wallet'
         wallet_type: 'Tipe Wallet'
-  errors:
-    messages:
-      required: 'harus diisi'
-      blank: 'harus diisi'
-      too_short: 'terlalu pendek'
-      not_a_number: 'harus angka'
+      transaction:
+        amount: 'Jumlah'
+        transaction_type: 'Tipe Transaksi'
+    errors:
+      models:
+        transaction_template:
+          attributes:
+            transaction_type:
+              required: 'Tipe Transaksi harus diisi'
+            amount:
+              greater_than: 'Jumlah harus lebih besar dari %{count}'
+          required: 'harus diisi'
+      messages:
+        required: 'harus diisi'
+        blank: 'harus diisi'
+        too_short: 'terlalu pendek'
+        not_a_number: 'harus angka'
   cash: 'tunai'
   bank_account: 'rekening bank'
   credit_card: 'kartu kredit'

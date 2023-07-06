@@ -1,27 +1,60 @@
-<div>
-  <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl mt-6 w-full">
-    <div class="md:flex flex flex-col">
-      <% @wallets.each do |wallet| %>
-        <div class="border-t-2 flex items-center">
-          <div class="md:flex-shrink-0 mr-6 ">
-            <img class="object-cover h-12 w-12 sm:h-24 sm:w-24 rounded-full max-w-none ml-4" src="https://source.unsplash.com/random" alt="Random Image">
-          </div>
-          <div class="p-8">
+<div class="max-w-md mx-auto w-full rounded-xl shadow-md overflow-hidden md:max-w-2xl mt-28 min-h-screen bg-white">
+  <div class="md:flex flex flex-col">
+    <% @wallets.each do |wallet| %>
+      <div class="border-b-2 flex items-center bg-white">
+        <div class="md:flex-shrink-0 mr-6">
+          <img class="object-cover h-12 w-12 sm:h-16 sm:w-16 rounded-full max-w-none ml-4" src="https://source.unsplash.com/random" alt="Random Image">
+        </div>
+        <div class="p-8 flex justify-between items-center w-full">
+          <div>
             <h3 class="block mt-1 text-lg leading-tight font-medium text-black"><%= wallet.name %></h3>
             <p class="mt-2 text-gray-500"><%= number_to_currency(wallet.amount) %></p>
-            <div class="mt-4">
-              <%= link_to 'Details', wallet_path(wallet), class:"bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"%>
-            </div>
+          </div>
+          <div>
+            <button onclick="toggleOverlay('<%= wallet.id %>')">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
+              </svg>
+            </button>
           </div>
         </div>
-      <% end %>
-    </div>
-    <div class="flex w-full justify-end">
-      <%= link_to new_wallet_path , class: "bg-blue-500 hover:bg-blue-600 text-white font-bold p-4 rounded-full fixed bottom-24	right-[calc(25%_+_150px)] drop-shadow-xl" do	%>
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-        </svg>
-      <% end %>
-    </div>
+      </div>
+      <div id="overlay_<%= wallet.id %>" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center hidden">
+        <div class="bg-white rounded-lg shadow-lg p-8 relative">
+          <div class="flex justify-end">
+            <%= link_to 'Remove', wallet_path(wallet), data: { turbo_method: :delete, confirm: 'Are you sure?' }, class: "bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-md shadow mr-2 mb-2" %>
+            <%= link_to 'Edit', edit_wallet_path(wallet), class: "border border-gray-300 text-gray-800 font-bold py-2 px-4 rounded-md shadow mr-2 mb-2" %>
+          </div>
+          <div class="flex justify-center">
+            <button onclick="toggleOverlay('<%= wallet.id %>')" class= "text-gray-400 hover:text-gray-600 font-bold py-2 px-4 rounded-md shadow mb-2 w-full">
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="flex w-full justify-end">
+    <%= link_to new_wallet_path, class: "bg-blue-500 hover:bg-blue-600 text-white font-bold p-4 rounded-full fixed drop-shadow-xl" do %>
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+      </svg>
+    <% end %>
   </div>
 </div>
+
+<script>
+  function toggleOverlay(walletId) {
+    const overlay = document.getElementById(`overlay_${walletId}`);
+    overlay.classList.toggle('hidden');
+  }
+</script>
+
+<% content_for :header do %>
+  <%= render 'header', title: 'Wallet', child_links: [['Account', wallets_path], ['Savings', root_path], ['Accumulate', root_path]] %>
+  <p class="text-center">Total Amount: <%= number_to_currency(current_total_balance) %></p>
+<% end %>
+
+<% content_for :navbar do %>
+  <%= render 'navbar' %>
+<% end %>

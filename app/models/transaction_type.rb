@@ -17,5 +17,17 @@ class TransactionType < ApplicationRecord
     def income
       @income ||= find_by_name!('Income')
     end
+    def borrow
+      @borrow ||= find_by_name!('Borrow')
+    end
+    def lend
+      @lend ||= find_by_name!('Lend')
+    end
+    def transfer
+      @transfer ||= find_by_name!('Transfer')
+    end
+    def adjustment
+      @adjustment ||= find_by_name!('Adjustment')
+    end
   end
 end

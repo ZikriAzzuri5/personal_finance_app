@@ -1,10 +1,13 @@
-<%= render partial: 'navbar' %>
-<div class="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-  <div class="bg-white rounded-lg shadow-lg p-8">
+<%= render 'navbar' %>
+<% unless params[:action] == 'edit' %>
+  <%= render 'navbar_transaction_type' %>
+<% end %>
+<div class="flex flex-col items-center justify-center min-h-screen bg-white my-10">
+  <div class="bg-white rounded-lg shadow-lg p-8  max-w-[261px]">
     <h2 class="text-2xl font-bold mb-4">Expense</h2>
     <%= render 'errors', errors: @transaction.errors.full_messages %>
     <%= form_with model: @transaction, class: "w-full" do |form| %>
-      <%= hidden_field_tag 'transaction_type_id', params[:transaction_type_id] %>
+      <%= hidden_field_tag :transaction_type_id, @transaction.transaction_type_id %>
       <div class="mb-4">
         <%= form.label :amount, class: "block text-gray-700 font-bold mb-2" %>
         <%= form.number_field :amount, class: "text-red-500 appearance-none border rounded w-full py-2 px-3
@@ -12,7 +15,7 @@
       </div>
       <div class="mb-4">
         <%= form.label :category_id, class: "block text-gray-700 font-bold mb-2"%>
-        <%= form.select :category_id, category_select_options(current_user.id, params[:transaction_type_id]), {}, class: "block
+        <%= form.select :category_id, category_select_options(current_user.id, @transaction.transaction_type_id), {}, class: "block
           w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none
           focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" %>
       </div>
@@ -26,9 +29,9 @@
         <%= form.label :description, class: "block text-gray-700 font-bold mb-2" %>
         <%= form.text_area :description, class: "resize-none w-full h-32 px-3 py-2 text-sm border shadow rounded-md " %>
       </div>
-      <div class="mb-4">
-        <%= form.label :transaction_at, class: "block text-gray-700 font-bold mb-2" %>
-        <%= form.datetime_select :transaction_at, class:"mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
+      <div class="relative mb-4">
+        <%= form.label :transaction_at, class: "block text-gray-700 font-bold" %>
+        <%= form.datetime_local_field :transaction_at, class: "block w-full py-2.5 pl-2 pr-4 text-sm text-gray-900 placeholder-gray-400 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-transparent dark:border-gray-600 dark:text-white dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500", placeholder: "Select date and time" %>
       </div>
       <div class="flex justify-center">
         <%= form.submit class: "w-full flex justify-center mt-4 py-2 px-4 border border-transparent rounded-md

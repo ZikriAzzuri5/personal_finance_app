@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   get 'login', to: 'sessions#new'
   post 'login', to: 'sessions#create'
   get 'logout', to: 'sessions#destroy'
@@ -7,14 +6,17 @@ Rails.application.routes.draw do
   get 'register', to: 'registrations#new'
   post 'register', to: 'registrations#create'
 
-  resources :users, only: [:new, :create, :index, :show]
+  get 'chart', to: 'transactions#chart', as: 'transactions_chart'
 
+  resources :users, only: [:new, :create, :index, :show]
   resources :wallets
   resources :categories
   resources :transactions
+  resources :transaction_templates
+  resources :passwords, only: %i[edit update], param: :token
 
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  resource :reset_password, only: %i[new create]
 
-  # Defines the root path route ("/")
+
   root "dashboard#index"
 end

@@ -22,10 +22,14 @@
 #
 class Category < ApplicationRecord
   has_many :transactions
+  has_many :transaction_templates
   has_many :transaction_types
 
   belongs_to :user
 
   validates :name, presence: true
 
+  def self.ransackable_attributes(auth_object = nil)
+    ['name']
+  end
 end

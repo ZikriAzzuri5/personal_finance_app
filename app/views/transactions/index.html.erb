@@ -1,31 +1,57 @@
 <div>
-  <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl mt-6 w-full">
+  <div class="max-w-md mx-auto rounded-xl shadow-md overflow-hidden md:max-w-2xl w-full mt-10 min-h-screen bg-white">
     <div class="md:flex flex flex-col">
       <% @transactions.each do |transaction| %>
-        <div class="border-t-2 flex items-center">
-          <div class="md:flex-shrink-0 mr-6 ">
-          <img class="object-cover h-12 w-12 sm:h-24 sm:w-24 rounded-full max-w-none ml-4" src="https://source.unsplash.com/random" alt="Random Image">
+        <div class="border-b-2 flex items-center bg-white">
+          <div class="md:flex-shrink-0 mr-6">
+            <img class="object-cover h-12 w-12 sm:h-16 sm:w-16 rounded-full max-w-none ml-4" src="https://source.unsplash.com/random" alt="Random Image">
           </div>
-          <div class="p-8">
-            <h3 class="block mt-1 text-lg leading-tight font-medium text-black"><%= transaction.amount %></h3>
-            <p class="mt-2 text-gray-500"><%= transaction.date %></p>
-            <p class="mt-2 text-gray-500"><%= transaction.description %></p>
-            <p class="mt-2 text-gray-500"><%= transaction.type %></p>
-            <p class="mt-2 text-gray-500"><%= transaction.wallet_account %></p>
-            <p class="mt-2 text-gray-500"><%= transaction.category %></p>
-            <div class="mt-4">
-              <%= link_to 'Details', transaction_path(transaction), class:"bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"%>
+          <div class="p-8 flex justify-between items-center w-full">
+            <div>
+              <h3 class="block mt-1 text-lg leading-tight font-medium text-black"><%= transaction.category_name %></h3>
+              <p class="block mt-1 text-lg leading-tight font-medium text-black"><%= transaction.transaction_at.strftime("%Y-%m-%d") %></p>
+              <p class="block mt-1 text-lg leading-tight font-medium text-black"><%= transaction.transaction_at.strftime("%H:%M:%S") %></p>
+              <p class="block mt-1 text-lg leading-tight font-medium text-black"><%= number_to_currency(transaction.amount) %></p>
+            </div>
+            <div>
+              <button onclick="toggleOverlay('<%= transaction.id %>')">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div id="overlay_<%= transaction.id %>" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center hidden">
+          <div class="bg-white rounded-lg shadow-lg p-8 relative">
+            <div class="flex justify-end">
+              <%= link_to 'Remove', transaction_path(transaction), data: { turbo_method: :delete, confirm: 'Are you sure?' }, class: "bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-md shadow mr-2 mb-2" %>
+              <%= link_to 'Edit', edit_transaction_path(transaction), class: "border border-gray-300 text-gray-800 font-bold py-2 px-4 rounded-md shadow mr-2 mb-2" %>
+            </div>
+            <div class="flex justify-center">
+              <button onclick="toggleOverlay('<%= transaction.id %>')" class= "text-gray-400 hover:text-gray-600 font-bold py-2 px-4 rounded-md shadow mb-2 w-full">
+                Cancel
+              </button>
             </div>
           </div>
         </div>
       <% end %>
     </div>
   </div>
-  <div class="flex w-full justify-end">
-    <%= link_to new_transaction_path , class: "bg-blue-500 hover:bg-blue-600 text-white font-bold p-4 rounded-full drop-shadow-xl fixed bottom-24 right-[calc(25%_+_150px)] " do	%>
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-      </svg>
-    <% end %>
-  </div>
 </div>
+
+<script>
+  function toggleOverlay(categoryId) {
+    const overlay = document.getElementById(`overlay_${categoryId}`);
+    overlay.classList.toggle('hidden');
+  }
+</script>
+
+
+<% content_for :header do %>
+  <%= render 'header', title: 'Transaction' %>
+<% end %>
+
+<% content_for :navbar do %>
+  <%= render 'navbar', title: 'Transaction' %>
+<% end %>

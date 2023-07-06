@@ -1,0 +1,66 @@
+<%= render 'navbar' %>
+<% unless params[:action] == 'edit' %>
+  <%= render 'navbar_transaction_type' %>
+<% end %>
+<div class="flex flex-col items-center justify-center min-h-screen bg-white my-16">
+  <div class="bg-white rounded-lg shadow-lg p-8">
+    <h2 class="text-2xl font-bold mb-4">Lend</h2>
+    <%= render 'errors', errors: @transaction_template.errors.full_messages %>
+    <%= form_with model: @transaction_template, class: "w-full" do |form| %>
+      <%= hidden_field_tag :transaction_type_id, @transaction_template.transaction_type_id %>
+      <div class="mb-4">
+        <%= form.label :amount, class: "block text-gray-700 font-bold mb-2" %>
+        <%= form.number_field :amount, class: "appearance-none border rounded w-full py-2 px-3
+          text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+      </div>
+      <div class="mb-4">
+        <%= form.label :category_id, class: "block text-gray-700 font-bold mb-2"%>
+        <%= form.select :category_id, category_select_options(current_user.id, @transaction_template.transaction_type_id), {}, class: "block
+          w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none
+          focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" %>
+      </div>
+      <div class="mb-4">
+        <%= form.label :wallet_id, class: "block text-gray-700 font-bold mb-2" %>
+        <%= form.select :wallet_id, wallet_select_options, {}, class: "block
+          w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none
+          focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" %>
+      </div>
+      <div class="mb-4">
+        <%= form.label :contact_name, class: "block text-gray-700 font-bold mb-2" %>
+        <%= form.text_field :contact_name, class: "block
+          w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none
+          focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" %>
+      </div>
+      <div class="mb-4">
+        <%= form.label :description, class: "block text-gray-700 font-bold mb-2" %>
+        <%= form.text_area :description, class: "resize-none w-full h-32 px-3 py-2 text-sm border shadow rounded-md " %>
+      </div>
+      <div class="mb-4">
+        <%= form.label :recurring_type, class: "block text-gray-700 font-bold mb-2" %>
+        <%= form.select :recurring_type, reccuring_type_select_options, {},
+        class: "appearance-none border rounded w-full py-2 px-3 text-gray-700
+        leading-tight focus:outline-none focus:shadow-outline" %>
+      </div>
+      <div class="mb-4">
+        <%= form.label :recurring_step, class: "block text-gray-700 font-bold mb-2" %>
+        <%= form.number_field :recurring_step, class: "appearance-none border rounded w-full py-2 px-3
+          text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+      </div>
+      <div class="mb-4">
+        <%= form.label :recurring_start_date, class: "block text-gray-700 font-bold mb-2" %>
+        <%= form.date_field :recurring_start_date, class: "appearance-none border rounded w-full py-2 px-3
+          text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+      </div>
+      <div class="mb-4">
+        <%= form.label :recurring_end_date, class: "block text-gray-700 font-bold mb-2" %>
+        <%= form.date_field :recurring_end_date, class: "appearance-none border rounded w-full py-2 px-3
+          text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+      </div>
+      <div class="flex justify-center">
+        <%= form.submit class: "w-full flex justify-center mt-4 py-2 px-4 border border-transparent rounded-md
+        shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none
+        focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" %>
+      </div>
+    <% end %>
+  </div>
+</div>

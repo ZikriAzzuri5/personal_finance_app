@@ -1,6 +1,16 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
+gem "chartkick"
+gem "groupdate"
+
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
+
+gem 'pry'
+
+gem 'ransack'
+
 ruby "3.1.3"
 
 gem 'bcrypt', '~> 3.1.7'
@@ -61,6 +71,7 @@ group :development do
 
   gem 'annotate'
 
+  gem 'letter_opener'
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"

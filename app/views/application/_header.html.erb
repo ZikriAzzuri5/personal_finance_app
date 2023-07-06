@@ -1,0 +1,71 @@
+<nav class="fixed z-10 bg-blue-500 w-[425px] h-50 top-0 left-1/2 transform -translate-x-1/2">
+  <div class="mx-auto px-4 py-2 max-w-7xl sm:px-6 lg:px-8">
+    <div class="flex flex-col items-center justify-between">
+      <% if title == 'Home' && user_signed_in? %>
+        <%= title %>
+        <p>Hi <%= current_user.email.split('@').first %> </p>
+      <% end %>
+      <% if title == 'Wallet' %>
+       <%= title %>
+        <form>
+          <div class="flex flex-row items-center">
+            <%= search_form_for @q do |f| %>
+              <label for="search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+              <div class="relative">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                  <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                </div>
+                <%= f.search_field :name_cont, id: "search", class: "block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500", placeholder: "Search", required: true %>
+                <button type="submit" class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 ">Search</button>
+              </div>
+            <% end %>
+          </div>
+        </form>
+      <% end %>
+    <% if title == 'Category' %>
+      <div class="flex flex-row items-center">
+        <% if params[:q].present? %>
+          <%= link_to categories_path(back_button: true), class: "text-white mr-2" do %>
+            <svg class="w-6 h-6 font-semibold" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+            </svg>
+          <% end %>
+        <% end %>
+        <!-- <%= title %> -->
+        <form>
+          <div class="flex flex-row items-center">
+            <%= search_form_for @q do |f| %>
+              <label for="search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+              <div class="relative">
+                <%= f.search_field :name_cont, id: "search", class: "block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500", placeholder: "Search", required: true %>
+                <button type="submit" class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2">Search</button>
+              </div>
+            <% end %>
+          </div>
+        </form>
+      </div>
+    <% end %>
+      <% if title == 'Transaction' %>
+        <div class="flex flex-row items-center">
+          <%= title %>
+        </div>
+      <% end %>
+      <% if title == 'Profile' %>
+        <div class="flex flex-row items-center">
+          <%= title %>
+        </div>
+      <% end %>
+      <% if defined?(child_links) %>
+        <div class="flex flex-row border-b border-gray-200 dark:border-gray-700">
+          <ul class="flex justify-center text-sm font-medium text-center">
+            <% child_links.each do |child_link| %>
+              <li class='mr-2'>
+                <%= link_to child_link[0], child_link[1],  class: 'inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-white hover:border-gray-300' %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</nav>
